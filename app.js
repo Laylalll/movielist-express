@@ -5,13 +5,18 @@ const port = 3000
 
 // require handlebars in the project
 const exphbs = require('express-handlebars')
+// require movie data in the project
+const movieList = require('./movies.json')
+
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+// setting static files
+app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { movies: movieList.results })
 })
 
 // start and listen on the Express server
