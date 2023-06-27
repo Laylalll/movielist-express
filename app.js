@@ -22,6 +22,11 @@ app.get('/movies/:movie_id', (req, res) => {
   const movie = movieList.results.find(movie => movie.id.toString() === req.params.movie_id)
   res.render('show', { movie: movie })
 })
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const movies = movieList.results.filter(movie => movie.title.toLowerCase().includes(keyword.toLowerCase()))
+  res.render('index', { movies: movies, keyword: keyword })
+})
 
 // start and listen on the Express server
 app.listen(port, () => {
